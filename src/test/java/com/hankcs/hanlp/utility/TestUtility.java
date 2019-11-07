@@ -28,7 +28,7 @@ public class TestUtility
 
     public static void ensureFullData()
     {
-        ensureData("data/model/crf", "http://nlp.hankcs.com/download.php?file=data", ".", false);
+        ensureData("/Users/Conan/hanlp/data/model/crf", "http://nlp.hankcs.com/download.php?file=data", ".", false);
     }
 
     /**
@@ -83,7 +83,7 @@ public class TestUtility
      */
     public static String ensureTestData(String name, String url)
     {
-        return ensureData(String.format("data/test/%s", name), url);
+        return ensureData(String.format("/Users/Conan/hanlp/data/test/%s", name), url);
     }
 
     /**

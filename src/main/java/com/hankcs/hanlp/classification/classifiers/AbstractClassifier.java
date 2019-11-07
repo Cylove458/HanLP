@@ -57,6 +57,14 @@ public abstract class AbstractClassifier implements IClassifier
     }
 
     @Override
+    public Map<String, Object> classifyAndScore(String text) throws IllegalArgumentException, IllegalStateException
+    {
+        Map<String, Object> scoreMap = predictSentiment(text);
+
+        return scoreMap;
+    }
+
+    @Override
     public String classify(Document document) throws IllegalArgumentException, IllegalStateException
     {
         Map<String, Double> scoreMap = predict(document);
@@ -118,6 +126,28 @@ public abstract class AbstractClassifier implements IClassifier
         for (int i = 0; i < probs.length; i++)
         {
             scoreMap.put(model.catalog[i], probs[i]);
+        }
+        return scoreMap;
+    }
+    @Override
+    public Map<String, Object> predictSentiment(Document document)
+    {
+        AbstractModel model = getModel();
+        if (model == null)
+        {
+            throw new IllegalStateException("未训练模型！无法执行预测！");
+        }
+        if (document == null)
+        {
+            throw new IllegalArgumentException("参数 text == null");
+        }
+
+        double[] probs = categorize(document);
+        Map<String, Object> scoreMap = new TreeMap<String, Object>();
+        for (int i = 0; i < probs.length; i++)
+        {
+            scoreMap.put(model.catalog[i], probs[i]);
+            scoreMap.put("word_list",document.tfWordMap.values());
         }
         return scoreMap;
     }

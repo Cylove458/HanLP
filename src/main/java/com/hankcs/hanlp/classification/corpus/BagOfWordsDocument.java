@@ -13,6 +13,8 @@ package com.hankcs.hanlp.classification.corpus;
 
 import com.hankcs.hanlp.classification.collections.FrequencyMap;
 
+import java.util.TreeMap;
+
 /**
  * @author hankcs
  */
@@ -27,11 +29,15 @@ public class BagOfWordsDocument implements ITermFrequencyHolder
     //     * 文档所属的类表
     //     */
     //    private Catalog catalog;
+
     public FrequencyMap<Integer> tfMap;
+
+    public TreeMap<Integer,String> tfWordMap;
 
     public BagOfWordsDocument()
     {
         tfMap = new FrequencyMap<Integer>();
+        tfWordMap = new TreeMap<Integer, String>();
     }
 
     public FrequencyMap<Integer> getTfMap()

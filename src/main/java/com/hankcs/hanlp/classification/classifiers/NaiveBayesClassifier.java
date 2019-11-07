@@ -132,6 +132,22 @@ public class NaiveBayesClassifier extends AbstractClassifier
 
         return predict(doc);
     }
+    public Map<String, Object> predictSentiment(String text) throws IllegalArgumentException, IllegalStateException
+    {
+        if (model == null)
+        {
+            throw new IllegalStateException("未训练模型！无法执行预测！");
+        }
+        if (text == null)
+        {
+            throw new IllegalArgumentException("参数 text == null");
+        }
+
+        //分词，创建文档
+        Document doc = new Document(model.wordIdTrie, model.tokenizer.segment(text));
+
+        return predictSentiment(doc);
+    }
 
     @Override
     public double[] categorize(Document document) throws IllegalArgumentException, IllegalStateException
@@ -154,9 +170,9 @@ public class NaiveBayesClassifier extends AbstractClassifier
 
                 if (!model.logLikelihoods.containsKey(feature))
                 {
+                    document.tfWordMap.remove(feature); // 该词并非判别词，从统计中删除
                     continue; //如果在模型中找不到就跳过了
                 }
-
                 occurrences = entry2.getValue()[0]; //获取其在文档中的频次
 
                 logprob += occurrences * model.logLikelihoods.get(feature).get(category); //将对数似然乘上频次

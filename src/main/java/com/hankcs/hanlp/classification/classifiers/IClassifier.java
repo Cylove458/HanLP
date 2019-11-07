@@ -44,11 +44,29 @@ public interface IClassifier
     Map<String, Double> predict(String text) throws IllegalArgumentException, IllegalStateException;
 
     /**
+     * 情感分析
+     * @param text
+     * @return 情感倾向度和判别词列表
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     */
+    Map<String, Object> predictSentiment(String text) throws IllegalArgumentException, IllegalStateException;
+
+    /**
      * 预测分类
      * @param document
      * @return
      */
     Map<String, Double> predict(Document document) throws IllegalArgumentException, IllegalStateException;
+
+    /**
+     * 情感分析
+     * @param document
+     * @return 情感倾向度和判别词
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     */
+    Map<String, Object> predictSentiment(Document document) throws IllegalArgumentException, IllegalStateException;
 
     /**
      * 预测分类
@@ -58,6 +76,15 @@ public interface IClassifier
      * @throws IllegalStateException
      */
     double[] categorize(Document document) throws IllegalArgumentException, IllegalStateException;
+
+//    /**
+//     * 情感分析(相比于categorize的分类，增加了情感判别词统计)
+//     * @param document
+//     * @return
+//     * @throws IllegalArgumentException
+//     * @throws IllegalStateException
+//     */
+//    Map<String,Object> categorizeSentiment(Document document) throws IllegalArgumentException, IllegalStateException;
 
     /**
      * 预测最可能的分类
@@ -76,6 +103,15 @@ public interface IClassifier
      * @throws IllegalStateException
      */
     String classify(String text) throws IllegalArgumentException, IllegalStateException;
+
+    /**
+     * 预测可能分类及倾向度占比
+     * @param text
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalStateException
+     */
+    Map<String,Object> classifyAndScore(String text) throws IllegalArgumentException, IllegalStateException;
 
     /**
      * 预测最可能的分类

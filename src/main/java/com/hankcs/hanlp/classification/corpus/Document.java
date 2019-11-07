@@ -68,6 +68,7 @@ public class Document extends BagOfWordsDocument
             Integer id = wordIdTrie.get(tokenArray[i].toCharArray());
             if (id == null) continue;
             tfMap.add(id);
+            tfWordMap.put(id,tokenArray[i]);
         }
     }
 
